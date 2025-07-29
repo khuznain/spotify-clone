@@ -3,8 +3,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import fileUpload from "express-fileupload";
+import { createServer } from "http";
 import path from "path";
 import connectDB from "./lib/db.js";
+import { initializeSocket } from "./lib/socket.js";
 import adminRoutes from "./routes/admin.route.js";
 import albumRoutes from "./routes/album.route.js";
 import authRoutes from "./routes/auth.route.js";
@@ -17,6 +19,9 @@ dotenv.config();
 const __dirname = path.resolve();
 const app = express();
 const PORT = process.env.PORT || 4000;
+
+const httpServer = createServer(app);
+initializeSocket(httpServer);
 
 app.use(
   cors({
@@ -50,6 +55,13 @@ app.use("/api/songs", songRoutes);
 app.use("/api/albums", albumRoutes);
 app.use("/api/stats", statRoutes);
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"));
+  });
+}
+
 // error handler
 app.use((err, req, res, next) => {
   res.status(500).json({
@@ -62,7 +74,7 @@ app.use((err, req, res, next) => {
 
 connectDB()
   .then(() => {
-    app.listen(PORT, () => {
+    httpServer.listen(PORT, () => {
       console.log("Server is running on port " + PORT);
     });
   })

@@ -3,8 +3,6 @@ import { clerkClient } from "@clerk/express";
 export const protectRoute = async (req, res, next) => {
   const auth = req.auth();
 
-  console.log(auth?.userId, "auth");
-
   if (!auth?.userId) {
     return res
       .status(401)

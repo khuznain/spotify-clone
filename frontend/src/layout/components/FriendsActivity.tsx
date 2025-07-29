@@ -9,6 +9,9 @@ const FriendsActivity = () => {
   const { users, fetchUsers, onlineUsers, userActivities } = useChatStore();
   const { user } = useUser();
 
+  console.log("users =============>", users);
+  console.log("userActivities =============>", userActivities);
+
   useEffect(() => {
     if (user) fetchUsers();
   }, [fetchUsers, user]);
