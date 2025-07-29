@@ -4,9 +4,13 @@ import { Link } from "react-router-dom";
 import SignInOAuthButtons from "./SignInOAuthButtons";
 import { buttonVariants } from "./ui/button";
 import { cn } from "@/lib/utils";
+import useAuthStore from "@/stores/useAuthStore";
 
 const Topbar = () => {
-  const isAdmin = false;
+  const { isAdmin } = useAuthStore();
+
+  console.log(isAdmin, "isAdmin");
+
   return (
     <div
       className="flex items-center justify-between p-4 sticky top-0 bg-zinc-900/75 

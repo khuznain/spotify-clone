@@ -12,7 +12,7 @@ const router = Router();
 
 router.use(protectRoute, requireAdmin);
 
-router.get("/check-admin", checkAdmin);
+router.get("/check", checkAdmin);
 router.post("/songs", createSong);
 router.delete("/songs/:id", deleteSong);
 router.post("/albums", createAlbum);
