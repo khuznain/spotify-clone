@@ -4,6 +4,6 @@ import { getAlbums, getAlbumById } from "../controllers/album.controller.js";
 const router = Router();
 
 router.get("/", getAlbums);
-router.get("/:id", getAlbumById);
+router.get("/:albumId", getAlbumById);
 
 export default router;

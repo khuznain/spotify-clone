@@ -26,7 +26,12 @@ app.use(
 );
 
 app.use(express.json());
-app.use(clerkMiddleware());
+app.use(
+  clerkMiddleware({
+    apiKey: process.env.CLERK_SECRET_KEY,
+    secretKey: process.env.CLERK_SECRET_KEY,
+  })
+);
 app.use(
   fileUpload({
     useTempFiles: true,

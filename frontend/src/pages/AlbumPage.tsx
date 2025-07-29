@@ -42,8 +42,6 @@ const AlbumPage = () => {
     playAlbum(currentAlbum?.songs, index);
   };
 
-  console.log(currentAlbum);
-
   return (
     <div className="h-full">
       <ScrollArea className="h-full rounded-md">
